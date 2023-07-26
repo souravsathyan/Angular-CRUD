@@ -1,0 +1,15 @@
+<form [formGroup]="form" (submit)="submit()">
+    <h1 class="h3 mb-3 fw-normal" >User Registeration</h1>
+
+    <label for="">Name</label>
+    <input type="text" class="form-control" formControlName="name" placeholder="name" required>
+    
+    <label for="">email</label>
+    <input type="email" class="form-control" placeholder="email" formControlName="email" required>
+
+    <label for="">password</label>
+    <input type="password" class="form-control" placeholder="password" formControlName="password" required>
+
+    <button class="w-100 btn btn-lg btn-primary" type="submit">Submit</button>
+
+</form>
