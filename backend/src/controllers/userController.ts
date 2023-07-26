@@ -41,10 +41,10 @@ export default {
   userLogin: async (req: Request, res: Response) => {
     const user = await UserDB.findOne({ email: req.body.email });
     if (!user) {
-      return res.status(404).send({ message: "user not found" });
+      return res.status(500).json({ message: "user not found" });
     }
     if (!(await bcrypt.compare(req.body.password, user.password))) {
-      return res.status(400).send({
+      return res.status(500).json({
         message: "incorrect Password please try again",
       });
     }

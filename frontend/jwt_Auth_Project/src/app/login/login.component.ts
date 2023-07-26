@@ -48,10 +48,10 @@ export class LoginComponent implements OnInit {
               text: err.error.message,
               icon: 'error',
             });
-          } else {
+          } else if(err.status === 500 && err.error?.message){
             Swal.fire({
               title: 'Error',
-              text: 'Something went wrong',
+              text: err.error.message,
               icon: 'error',
             });
           }
