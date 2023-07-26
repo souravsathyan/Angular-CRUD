@@ -25,7 +25,7 @@ export class HomeComponent implements OnInit{
   ngOnInit(): void {
     this.authService.getUser()
       .subscribe((res: any) => {
-        this.message = `Hi ${res}`;
+        this.message = `Hi ${res.user.name}`;
         Emitters.authEmitter.emit(true);
       }, (err) => {
         this.message = 'user not authorised';

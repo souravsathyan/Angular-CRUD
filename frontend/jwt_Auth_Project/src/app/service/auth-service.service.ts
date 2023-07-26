@@ -10,10 +10,10 @@ export class AuthServiceService {
   constructor(private http:HttpClient) { }
 
   onLogin(obj:any):Observable<any>{
-    return  this.http.post('http://localhost:8080/api/userLogin', obj)
+    return  this.http.post('http://localhost:8081/api/userLogin', obj)
   }
 
   getUser():Observable<any>{
-    return this.http.get('http://localhost:8080/api/user')
+    return this.http.get('http://localhost:8081/api/user')
   }
 }

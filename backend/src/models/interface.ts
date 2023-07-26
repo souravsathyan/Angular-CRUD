@@ -1,7 +1,8 @@
 import { Request } from "express"
+import { ObjectId } from "mongoose"
 
 export interface Iuser {
-    _id: string,
+    _id: string | ObjectId
     name: string,
     email: string,
     password?: string,

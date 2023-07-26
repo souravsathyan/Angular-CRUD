@@ -4,7 +4,7 @@ import { tokenAuth } from "../middlewares/auth";
 
 const router = Router()
 
-router.post('/user/singUp',userController.postUserSignUp)
+router.post('/signUp',userController.postUserSignUp)
 
 router.get('/user',tokenAuth,userController.getUser)
 

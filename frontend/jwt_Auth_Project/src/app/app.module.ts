@@ -10,6 +10,7 @@ import { RegisterComponent } from './register/register.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http'
 import { TokenInterceptor } from './service/token.interceptor';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { TokenInterceptor } from './service/token.interceptor';
     NavComponent,
     LoginComponent,
     RegisterComponent,
+    ProfileComponent,
 
   ],
   imports: [

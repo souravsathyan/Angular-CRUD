@@ -12,7 +12,7 @@ export default {
             }else{
                 userDetails.password = await bcrypt.hash(userDetails.password,10)
                  UserDB.create({
-                    username:userDetails.name,
+                    name:userDetails.name,
                     email:userDetails.email,
                     password:userDetails.password,
                     image:userDetails.image

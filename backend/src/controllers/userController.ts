@@ -4,7 +4,7 @@ import userHelpers from "../helpers/userHelpers";
 import bcrypt from "bcrypt";
 import jwt, { JwtPayload } from "jsonwebtoken";
 import { Iuser, headerRequest } from "models/interface";
-import { tokenAuth} from "../middlewares/auth";
+import { tokenAuth,generateToken} from "../middlewares/auth";
 
 export default {
   //user registration
@@ -27,7 +27,10 @@ export default {
   //getting the user details
   getUser: async (req: headerRequest, res: Response) => {
     try {
-      res.json({user:req.user,msg:"success"});
+      
+      const user = await UserDB.findOne({email:req.user.email})
+      res.json({user:user});
+
     } catch (error) {
       return res.status(401).send({
         message: "unauthenticated3",
@@ -45,22 +48,19 @@ export default {
         message: "incorrect Password please try again",
       });
     }
-    //jwt setup
-    const payload = {
-      user_id: user._id,
-      name: user.username,
-      email: user.email,
-      password: user.password,
-    };
-    const secretKey = "secret key";
-    const token = jwt.sign(payload, secretKey);
+   
+    //jwt token generation----
+    const token  = await generateToken(user)
     res.cookie("jwt", token, {
       httpOnly: true,
       maxAge: 24 * 60 * 1000,
     });
+    //------------------------
 
     res.json({ token: token});
   },
+
+  //logout
   postLogout: (req: Request, res: Response) => {
     res.cookie("jwt", "", { maxAge: 0 });
 
