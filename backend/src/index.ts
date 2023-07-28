@@ -8,14 +8,14 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import connectToDB from './utils/connection';
 import userRoutes from './routes/user'
+import path from 'path'
 
 
 
 dotenv.config();
 
 const app = express()
-
-
+app.use('/images', express.static(path.join(__dirname, 'assets', 'images')));
 
 app.use(cors({
     credentials:true

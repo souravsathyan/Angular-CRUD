@@ -17,3 +17,6 @@ export interface headerRequest extends Request{
     token:any
 }
 
+export interface filesReq extends Request{
+    files: any
+}

@@ -1,1 +1,31 @@
-<p>profile works!</p>
+<div class="d-flex align-items-center " style="height: 100vh;">
+    <!-- profile card -->
+    <div class="card m-auto boxShadow outerBox">
+        <!-- background overlay-->
+        <div class="overlayBg">
+            <button class="btn btn-sm btn-light text-danger float-end me-3 mt-2 ">edit</button>
+        </div>
+        <!-- cardContainer -->
+        <div class="cardContainer d-flex flex-column align-items-center">
+            <!-- profile pic -->
+            <div class="raisedPic ">
+                <img class="border border-light border-4" [src]="uploadedImage" class="profilePic" alt="" srcset="">
+                <a  class="editPen" (click)="toggleInput()"><i class="fa-solid fa-pen-to-square"></i></a>
+                
+            </div>
+            <!-- card body -->
+            <div class=" theProfileBody shadow d-flex flex-column align-items-center">
+                <div class="mb-3 d-flex" *ngIf="showInput">
+                    <input class="form-control" type="file" id="formFile" (change)="onChangeFile($event)" required>
+                </div>
+                <h1 class="card-title text-center">{{message}}</h1>
+                <p class="text-center">{{email}}</p>
+                <div class="d-flex justify-content-center  ">
+                    <a href="#" class="btn btn-primary me-2">Home</a>
+                    <a href="#" class="btn btn-primary">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

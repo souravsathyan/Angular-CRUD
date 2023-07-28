@@ -4,10 +4,14 @@ import { headerRequest } from "models/interface";
 import { Iuser } from "models/interface";
 import jwt, { JwtPayload } from "jsonwebtoken";
 const secretKey = "secret key";
+import multer from "multer";
+import * as path from 'path'
+
 
 //token generation
 export const generateToken = (user:any)=>{
   const payload = {
+    id:user._id,
     name: user.name,
     email: user.email,
     password: user.password,
@@ -41,3 +45,17 @@ export const tokenAuth = (
       res.json("invalid token")
     }
 };
+
+//multer file upload
+export const upload = multer({
+  storage: multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, "src/assets/images");
+    },
+    filename: (req, file, cb) => {
+        cb(null, Date.now() + path.extname(file.originalname));
+    },
+  })
+})
+
+

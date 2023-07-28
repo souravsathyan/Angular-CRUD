@@ -15,7 +15,7 @@ interface userRes {
 })
 export class HomeComponent implements OnInit{
   message : string = ''
-
+  // TODO  fix message : CLEAR the message after user logout  
 
   constructor(
     private http : HttpClient,

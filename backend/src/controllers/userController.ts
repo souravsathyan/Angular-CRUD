@@ -68,4 +68,18 @@ export default {
       message: "logout success",
     });
   },
+
+  uploadPic:async(req:headerRequest, res:Response)=>{
+    //find user
+    const userId = req.user.id
+    const profilePic = req.file.filename
+    console.log(profilePic)
+    await UserDB.findByIdAndUpdate(
+        userId,{
+          image : profilePic
+        }
+    )
+    const imageUrl = profilePic;
+    res.json({imageUrl})
+  }
 };

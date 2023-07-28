@@ -16,4 +16,8 @@ export class AuthServiceService {
   getUser():Observable<any>{
     return this.http.get('http://localhost:8081/api/user')
   }
+
+  uploadPic(fileData:FormData):Observable<any>{
+    return this.http.post('http://localhost:8081/api/uploadPic',fileData)
+  }
 }
