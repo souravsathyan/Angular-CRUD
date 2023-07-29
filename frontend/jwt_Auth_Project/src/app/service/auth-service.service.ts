@@ -20,4 +20,8 @@ export class AuthServiceService {
   uploadPic(fileData:FormData):Observable<any>{
     return this.http.post('http://localhost:8081/api/uploadPic',fileData)
   }
+
+  editProfile(userData:FormData):Observable<any>{
+    return this.http.post('http://localhost:8081/api/updateProfile',userData)
+  }
 }

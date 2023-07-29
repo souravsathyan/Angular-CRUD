@@ -47,7 +47,6 @@ export class ProfileComponent implements OnInit {
       ) {
         const formData = new FormData();
         formData.append('file', file);
-        //TODO image upload backend
         this.authService.uploadPic(formData).subscribe((res: any) => {
           this.uploadedImage = this.fileUrl + res.imageUrl;
           this.toggleInput()
@@ -66,5 +65,10 @@ export class ProfileComponent implements OnInit {
 
   toggleInput() {
     return (this.showInput = !this.showInput);
+  }
+
+  onNameUpdated(updatedName:string){
+    console.log('in paraent')
+    this.message = updatedName
   }
 }

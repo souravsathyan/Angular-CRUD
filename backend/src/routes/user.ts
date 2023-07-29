@@ -15,6 +15,8 @@ router.post('/userLogout',userController.postLogout)
 
 router.post('/uploadPic',tokenAuth,upload.single('file'),userController.uploadPic)
 
+router.post('/updateProfile',tokenAuth,userController.editUser)
+
 
 export default router
 

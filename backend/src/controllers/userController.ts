@@ -81,5 +81,25 @@ export default {
     )
     const imageUrl = profilePic;
     res.json({imageUrl})
+  },
+
+  editUser:async (req:headerRequest, res:Response)=>{
+    const userData = req.body
+    const userID = req.user.id
+    try {
+      await UserDB.findByIdAndUpdate(
+        userID,
+        {
+          name:userData.name,
+          email:userData.email
+        }
+      )
+      res.json({name:userData.name,updated:true})
+    } catch (error) {
+      res.json({updated:false})
+    }
+
   }
+
+
 };

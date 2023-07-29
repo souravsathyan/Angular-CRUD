@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Emitters } from '../emitters/emmiters';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nav',
@@ -10,7 +11,7 @@ import { Emitters } from '../emitters/emmiters';
 export class NavComponent implements OnInit {
   authenticated = false
 
-  constructor(private http : HttpClient){
+  constructor(private http : HttpClient, private router : Router){
 
   }
 
@@ -24,6 +25,7 @@ export class NavComponent implements OnInit {
     this.http.post('http://localhost:8081/api/userLogout', {})
     .subscribe((res: any) => {
       localStorage.removeItem('token');
+      this.router.navigate(['login'])
       Emitters.authEmitter.emit(false);
     })
   }
