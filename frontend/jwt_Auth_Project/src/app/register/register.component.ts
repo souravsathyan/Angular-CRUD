@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import {  passwordChecker } from '../custom/validatos';
 
 @Component({
   selector: 'app-register',
@@ -23,19 +24,15 @@ export class RegisterComponent implements OnInit {
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
+      confirmPassword:['',Validators.required]
+    },{
+      validators: passwordChecker('password', 'confirmPassword')
     });
   }
 
   submit() {
     let user = this.form.getRawValue();
 
-    if (this.form.invalid) {
-      Swal.fire({
-        title: 'Error',
-        text: 'Please enter all the fields correctly',
-        icon: 'error',
-      });
-    } else {
       this.http.post('http://localhost:8081/api/signUp', user).subscribe(
         () => this.router.navigate(['/login']),
         (err) => {
@@ -56,4 +53,6 @@ export class RegisterComponent implements OnInit {
       );
     }
   }
-}
+
+  
+

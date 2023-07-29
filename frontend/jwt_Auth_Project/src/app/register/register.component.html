@@ -1,15 +1,33 @@
-<form [formGroup]="form" (submit)="submit()">
-    <h1 class="h3 mb-3 fw-normal" >User Registeration</h1>
-
-    <label for="">Name</label>
-    <input type="text" class="form-control" formControlName="name" placeholder="name" required>
+<div class="d-flex justify-content-center mt-5 ">
+    <form class="form" [formGroup]="form" (submit)="submit()">
+        <p class="title">Register </p>
+        <p class="message">Signup now and get full access to our app. </p>
+        <div class="flex">
+            <label for="">
+                <input type="text" class="input" formControlName="name" placeholder="name" required>
+                <div class="text-danger" *ngIf="form.controls['name'].invalid && form.controls['name'].touched">
+                    enter a valid email</div>
+            </label>
+        </div>
     
-    <label for="">email</label>
-    <input type="email" class="form-control" placeholder="email" formControlName="email" required>
-
-    <label for="">password</label>
-    <input type="password" class="form-control" placeholder="password" formControlName="password" required>
-
-    <button class="w-100 btn btn-lg btn-primary" type="submit">Submit</button>
-
-</form>
+        <label for="">
+            <input type="email" class="input" placeholder="email" formControlName="email" required>
+            <div class="text-danger" *ngIf="form.controls['email'].invalid && form.controls['email'].errors?.['email']">
+                enter a valid email</div>
+            <div class="text-danger" *ngIf="form.controls['email'].errors?.['required'] && form.controls['email'].touched">
+                enter a valid email</div>
+        </label>
+    
+    
+        <label for="">
+            <input type="password" class="input" placeholder="password" formControlName="password" required>
+        </label>
+        <label>
+            <input required="" placeholder="confirm password" type="password" formControlName="confirmPassword"
+                class="input">
+            <div class="text-danger" *ngIf="form.controls['confirmPassword'].touched && form.controls['confirmPassword'].errors?.['mustMatch']"
+                class="text-danger"> password don not match</div>
+        </label>
+        <button [disabled]="form.invalid" class="w-100 btn btn-lg btn-primary" type="submit">Submit</button>
+    </form>
+</div>

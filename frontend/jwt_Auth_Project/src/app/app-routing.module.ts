@@ -8,7 +8,10 @@ import { authGuard , noToLogin} from './service/auth.guard';
 
 const routes: Routes = [
   {
-    path:'',component:HomeComponent
+    path:'',component:HomeComponent,canActivate : [authGuard]
+  },
+  {
+    path:'Home',component:HomeComponent,canActivate : [authGuard]
   },
   {
     path:'login',component:LoginComponent

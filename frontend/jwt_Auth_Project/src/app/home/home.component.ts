@@ -15,7 +15,7 @@ interface userRes {
 })
 export class HomeComponent implements OnInit {
   message: string = '';
-  subscription: Subscription;
+  email = ''
   constructor(
     private http: HttpClient,
     private authService: AuthServiceService
@@ -25,7 +25,8 @@ export class HomeComponent implements OnInit {
 
     this.authService.getUser().subscribe(
       (res: any) => {
-        this.message = `Hi ${res.user.name}`;
+        this.message = ` ${res.user.name}`;
+        this.email = res.user.email
         Emitters.authEmitter.emit(true);
       },
       (err) => {
