@@ -18,7 +18,7 @@ export default {
                     image:userDetails.image
                 })
                 .then((data)=>{
-                    resolve({data:data,message:'user created successfully!..'})
+                    resolve({user:data})
                 })
                 .catch((err)=>{
                     reject({status:500, message:'something went wrong try agin after sometime'})

@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/fo
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import {  passwordChecker } from '../custom/validatos';
+import { AuthServiceService } from '../service/auth-service.service';
 
 @Component({
   selector: 'app-register',
@@ -16,7 +17,8 @@ export class RegisterComponent implements OnInit {
   constructor(
     private fromBuilder: FormBuilder,
     private http: HttpClient,
-    private router: Router
+    private router: Router,
+    private authService : AuthServiceService
   ) {}
 
   ngOnInit(): void {
@@ -33,7 +35,8 @@ export class RegisterComponent implements OnInit {
   submit() {
     let user = this.form.getRawValue();
 
-      this.http.post('http://localhost:8080/api/signUp', user).subscribe(
+     this.authService.createUser(user)
+     .subscribe(
         () => this.router.navigate(['/login']),
         (err) => {
           if (err.status === 400 && err.error?.message) {

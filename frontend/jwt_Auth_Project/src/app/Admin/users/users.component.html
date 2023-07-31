@@ -1,7 +1,13 @@
 <div class="m-auto w-75 ">
-  <div class="mt-5 ">
+  <div class="mt-5 d-flex justify-content-end">
     <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary float-end mb-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    
+    <form class="me-3">
+      <input class="rounded" type="text" #filter>
+      <button type="submit" class="btn btn-sm ms-2 btn-success" (click)="filterResult(filter.value)">Search</button>
+    </form>
+    
+    <button type="button" class="btn btn-primary btn-sm mb-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
       create user
     </button>
   </div>
@@ -42,23 +48,23 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form>
+        <form [formGroup]="form" (submit)="submit()">
           <div class="mb-3">
             <label  class="form-label">Name</label>
-            <input type="text" class="form-control"  >
+            <input type="text" class="form-control" formControlName="name" required>
           </div>
           <div class="mb-3">
             <label  class="form-label">Email address</label>
-            <input type="email" class="form-control"  >
+            <input type="email" class="form-control"  formControlName="email" required>
           </div>
           <div class="mb-3">
             <label  class="form-label">Password</label>
-            <input type="password" class="form-control" >
+            <input type="password" class="form-control" formControlName="password" required>
           </div>
           
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
+            <button type="submit" [disabled]="form.invalid" class="btn btn-primary">Save changes</button>
           </div>
           
         </form>

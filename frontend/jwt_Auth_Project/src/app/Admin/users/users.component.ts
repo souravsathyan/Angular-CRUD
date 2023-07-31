@@ -1,4 +1,5 @@
 import { Component, DoCheck, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthServiceService } from 'src/app/service/auth-service.service';
 import Swal from 'sweetalert2';
 
@@ -9,14 +10,20 @@ import Swal from 'sweetalert2';
 })
 export class UsersComponent implements OnInit {
   users: any = [];
+  form:FormGroup
 
   constructor(private authService: AuthServiceService) {}
 
   ngOnInit(): void {
     this.authService.getAllusers().subscribe((res) => {
       this.users = res;
-      console.log(this.users);
     });
+
+    this.form = new FormGroup({
+      name: new FormControl('',Validators.required),
+      email:new FormControl('', [Validators.email, Validators.required]),
+      password : new FormControl('',[Validators.required])
+    })
   }
 
   deleteUser(id: any) {
@@ -52,4 +59,44 @@ export class UsersComponent implements OnInit {
       }
     });
   }
+
+  submit(){
+    const userData = this.form.value
+    this.authService.createUser(userData)
+    .subscribe((res)=>{
+      console.log(res.user)
+      Swal.fire({
+        title:'User created succesfully',
+        icon:'success'
+      }).then(()=>{
+        this.users.push(res.user)
+      })
+    })
+  }
+
+  // onSearch(event:Event){
+  //   const searchTerm = (event.target as HTMLInputElement).value;
+  //   if(searchTerm === ''){
+  //     this.authService.getAllusers().subscribe((res) => {
+  //       this.users = res;
+  //     });
+  //   }else{
+  //     this.users = this.users.filter((user : any) =>
+  //       user.name.toLowerCase().includes(searchTerm.toLowerCase()))
+  //       console.log(this.users);
+  //   }
+  // }
+
+  filterResult(text:string){
+    if(!text){
+      this.authService.getAllusers().subscribe((res) => {
+        this.users = res;
+      });
+    }else{
+      this.users = this.users.filter((user:any)=>
+      user.name.toLowerCase().includes(text.toLowerCase())
+      )
+    }
+  }
+  
 }
