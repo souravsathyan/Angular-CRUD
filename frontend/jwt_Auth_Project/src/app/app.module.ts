@@ -12,6 +12,11 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http'
 import { TokenInterceptor } from './service/token.interceptor';
 import { ProfileComponent } from './profile/profile.component';
 import { EditUserComponent } from './edit-user/edit-user.component';
+import { DashboardComponent } from './Admin/dashboard/dashboard.component';
+import { UsersComponent } from './Admin/users/users.component';
+import { AdminNavComponent } from './Admin/admin-nav/admin-nav.component';
+import { RouterModule } from '@angular/router';
+import { AdminLoginComponent } from './Admin/admin-login/admin-login.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +27,10 @@ import { EditUserComponent } from './edit-user/edit-user.component';
     RegisterComponent,
     ProfileComponent,
     EditUserComponent,
+    DashboardComponent,
+    UsersComponent,
+    AdminNavComponent,
+    AdminLoginComponent,
 
   ],
   imports: [
@@ -30,6 +39,7 @@ import { EditUserComponent } from './edit-user/edit-user.component';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    
   ],
   providers: [{
     provide:HTTP_INTERCEPTORS, useClass:TokenInterceptor,

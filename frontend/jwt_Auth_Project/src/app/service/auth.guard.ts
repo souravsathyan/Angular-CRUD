@@ -24,3 +24,14 @@ export const noToLogin: CanActivateFn = (route, state) => {
     return true;
   }
 };
+
+export const isAdminLoggedIn = (state:any)=>{
+  const admin = localStorage.getItem('admin')
+  if(admin === 'true'){
+    return true
+  }else{
+    const router = inject(Router);
+    router.navigate(['admin/login'])
+    return false
+  }
+}

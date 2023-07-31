@@ -1,13 +1,17 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthServiceService {
 
-  constructor(private http:HttpClient) { }
+  private adminSubject : BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
+  constructor(
+    private http:HttpClient,
+    ) { }
 
   onLogin(obj:any):Observable<any>{
     return  this.http.post('http://localhost:8081/api/userLogin', obj)
@@ -24,4 +28,24 @@ export class AuthServiceService {
   editProfile(userData:FormData):Observable<any>{
     return this.http.post('http://localhost:8081/api/updateProfile',userData)
   }
+
+  
+  checkUser(){
+   const res =  localStorage.getItem('admin')
+    if(localStorage.getItem('admin') !== 'true'){
+      return false
+    }else {
+      return true
+    }
+  }
+
+  setAdminStatus(status:boolean){
+    this.adminSubject.next(status)
+  }
+
+  getAdminStatus():Observable<boolean>{
+    return this.adminSubject.asObservable();
+  }
+
+  
 }

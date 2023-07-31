@@ -4,6 +4,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { AuthServiceService } from '../service/auth-service.service';
+import { ReactiveFormsModule } from '@angular/forms';
+
 
 @Component({
   selector: 'app-login',
@@ -39,6 +41,7 @@ export class LoginComponent implements OnInit {
      this.authService.onLogin(user).subscribe(
         (res:any) => {
           localStorage.setItem('token',res.token)
+          localStorage.setItem('admin','false')
           this.router.navigate(['/']);
         },
         (err) => {

@@ -4,7 +4,10 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { ProfileComponent } from './profile/profile.component';
-import { authGuard , noToLogin} from './service/auth.guard';
+import { authGuard , isAdminLoggedIn, noToLogin} from './service/auth.guard';
+import { DashboardComponent } from './Admin/dashboard/dashboard.component';
+import { AdminLoginComponent } from './Admin/admin-login/admin-login.component';
+import { UsersComponent } from './Admin/users/users.component';
 
 const routes: Routes = [
   {
@@ -21,6 +24,15 @@ const routes: Routes = [
   },
   {
     path:'profile', component:ProfileComponent, canActivate : [authGuard]
+  },
+  {
+    path:'admin/dashboard', component:DashboardComponent, canActivate:[isAdminLoggedIn]
+  },
+  {
+    path:'admin/login', component:AdminLoginComponent
+  },
+  {
+    path:'admin/user', component:UsersComponent, canActivate:[isAdminLoggedIn]
   }
 ];
 

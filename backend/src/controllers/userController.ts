@@ -56,8 +56,7 @@ export default {
       maxAge: 24 * 60 * 1000,
     });
     //------------------------
-
-    res.json({ token: token});
+    res.json({ token: token, user:user});
   },
 
   //logout
