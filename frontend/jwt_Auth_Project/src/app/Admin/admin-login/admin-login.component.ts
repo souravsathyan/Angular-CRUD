@@ -50,7 +50,6 @@ export class AdminLoginComponent implements OnInit {
         })
         .then(()=>{
           localStorage.setItem('admin','true')
-          this.authService.setAdminStatus(true)
           this.router.navigateByUrl('admin/dashboard')
         })
       }

@@ -33,7 +33,7 @@ export class RegisterComponent implements OnInit {
   submit() {
     let user = this.form.getRawValue();
 
-      this.http.post('http://localhost:8081/api/signUp', user).subscribe(
+      this.http.post('http://localhost:8080/api/signUp', user).subscribe(
         () => this.router.navigate(['/login']),
         (err) => {
           if (err.status === 400 && err.error?.message) {

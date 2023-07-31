@@ -18,7 +18,6 @@ export class AdminNavComponent implements DoCheck{
 
   adminLogout(){
     localStorage.setItem('admin','false')
-    this.authService.setAdminStatus(false)
     Swal.fire({
       title:'logout successfull',
       icon:'success',

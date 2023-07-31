@@ -31,20 +31,21 @@ import { AdminLoginComponent } from './Admin/admin-login/admin-login.component';
     UsersComponent,
     AdminNavComponent,
     AdminLoginComponent,
-
   ],
+
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    
   ],
+
   providers: [{
     provide:HTTP_INTERCEPTORS, useClass:TokenInterceptor,
     multi:true
   }],
+  
   bootstrap: [AppComponent]
 })
 export class AppModule { }

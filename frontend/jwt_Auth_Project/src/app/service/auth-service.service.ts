@@ -1,51 +1,41 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthServiceService {
 
-  private adminSubject : BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-
+  private adminStatusSubject = new Subject();
   constructor(
     private http:HttpClient,
     ) { }
 
   onLogin(obj:any):Observable<any>{
-    return  this.http.post('http://localhost:8081/api/userLogin', obj)
+    return  this.http.post('http://localhost:8080/api/userLogin', obj)
   }
 
   getUser():Observable<any>{
-    return this.http.get('http://localhost:8081/api/user')
+    return this.http.get('http://localhost:8080/api/user')
   }
 
   uploadPic(fileData:FormData):Observable<any>{
-    return this.http.post('http://localhost:8081/api/uploadPic',fileData)
+    return this.http.post('http://localhost:8080/api/uploadPic',fileData)
   }
 
   editProfile(userData:FormData):Observable<any>{
-    return this.http.post('http://localhost:8081/api/updateProfile',userData)
+    return this.http.post('http://localhost:8080/api/updateProfile',userData)
   }
 
+  getAllusers():Observable<any>{
+    return this.http.get('http://localhost:8080/api/getAllUsers')
+  }
+
+  deleteUser(id:any):Observable<any>{
+    return this.http.post('http://localhost:8080/api/deleteUser',{id})
+  }
   
-  checkUser(){
-   const res =  localStorage.getItem('admin')
-    if(localStorage.getItem('admin') !== 'true'){
-      return false
-    }else {
-      return true
-    }
-  }
-
-  setAdminStatus(status:boolean){
-    this.adminSubject.next(status)
-  }
-
-  getAdminStatus():Observable<boolean>{
-    return this.adminSubject.asObservable();
-  }
 
   
 }

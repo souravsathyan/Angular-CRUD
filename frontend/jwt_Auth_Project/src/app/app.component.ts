@@ -1,6 +1,7 @@
 import { Component, DoCheck, OnInit } from '@angular/core';
 import { AuthServiceService } from './service/auth-service.service';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -11,6 +12,7 @@ export class AppComponent implements OnInit, DoCheck {
   
   admin = false
   title = 'jwt_Auth_Project';
+  adminStatus$!: Observable<any>;
 
   constructor(
     private authService : AuthServiceService,
@@ -19,17 +21,12 @@ export class AppComponent implements OnInit, DoCheck {
   ){}
   
   ngOnInit(): void {
-    this.authService.getAdminStatus().subscribe((status)=>{
-      this.admin = status
-      console.log(this.admin ,status, 'khjkjkbn')
-    })
+   
   }
 
   ngDoCheck(): void {
-    // if(this.authService.checkUser() ){
-    //   this.admin = true
-    // }
-    // console.log(this.admin)
+    const adminStatus = localStorage.getItem('admin');
+    this.admin = adminStatus === 'true' ? true : false 
   }
 
 }
