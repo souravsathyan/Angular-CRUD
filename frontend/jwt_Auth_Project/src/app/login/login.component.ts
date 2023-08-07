@@ -5,7 +5,8 @@ import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { AuthServiceService } from '../service/auth-service.service';
 import { ReactiveFormsModule } from '@angular/forms';
-
+import { Store } from '@ngrx/store';
+import { userLogin } from '../store/user/user.action';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +20,8 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private http: HttpClient,
     private router: Router,
-    private authService:AuthServiceService
+    private authService: AuthServiceService,
+    private store : Store
   ) {}
 
   ngOnInit(): void {
@@ -38,28 +40,30 @@ export class LoginComponent implements OnInit {
         icon: 'error',
       });
     } else {
-     this.authService.onLogin(user).subscribe(
-        (res:any) => {
-          localStorage.setItem('token',res.token)
-          localStorage.setItem('admin','false')
-          this.router.navigate(['/']);
-        },
-        (err) => {
-          if (err.status === 400 && err.error?.message) {
-            Swal.fire({
-              title: 'Error',
-              text: err.error.message,
-              icon: 'error',
-            });
-          } else if(err.status === 500 && err.error?.message){
-            Swal.fire({
-              title: 'Error',
-              text: err.error.message,
-              icon: 'error',
-            });
-          }
-        }
-      );
+      //  this.authService.onLogin(user).subscribe(
+      //     (res:any) => {
+      //       localStorage.setItem('token',res.token)
+      //       localStorage.setItem('admin','false')
+      //       this.router.navigate(['/']);
+      //     },
+      //     (err) => {
+      //       if (err.status === 400 && err.error?.message) {
+      //         Swal.fire({
+      //           title: 'Error',
+      //           text: err.error.message,
+      //           icon: 'error',
+      //         });
+      //       } else if(err.status === 500 && err.error?.message){
+      //         Swal.fire({
+      //           title: 'Error',
+      //           text: err.error.message,
+      //           icon: 'error',
+      //         });
+      //       }
+      //     }
+      //   );
+      
+      this.store.dispatch(userLogin({userDetails:user}))
     }
   }
 }

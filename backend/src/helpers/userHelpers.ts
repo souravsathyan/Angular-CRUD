@@ -3,19 +3,18 @@ import bcrypt from 'bcrypt'
 import { Iuser } from "models/interface";
 
 export default {
-    userSignUp:(userDetails:Iuser)=>{
+    userSignUp:(email:string,name:string,password:string)=>{
         return new Promise(async(resolve, reject) => {
-            let user:Iuser = await UserDB.findOne({email:userDetails.email})
+            let user:Iuser = await UserDB.findOne({email:email})
             if(user){
                 // console.log('existing email')
                 reject({status:400, message:'email alrady exists'})
             }else{
-                userDetails.password = await bcrypt.hash(userDetails.password,10)
+                password = await bcrypt.hash(password,10)
                  UserDB.create({
-                    name:userDetails.name,
-                    email:userDetails.email,
-                    password:userDetails.password,
-                    image:userDetails.image
+                    name:name,
+                    email:email,
+                    password:password,
                 })
                 .then((data)=>{
                     resolve({user:data})

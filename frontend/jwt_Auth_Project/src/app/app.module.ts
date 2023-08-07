@@ -17,6 +17,10 @@ import { UsersComponent } from './Admin/users/users.component';
 import { AdminNavComponent } from './Admin/admin-nav/admin-nav.component';
 import { RouterModule } from '@angular/router';
 import { AdminLoginComponent } from './Admin/admin-login/admin-login.component';
+import { StoreModule } from '@ngrx/store';
+import { AppState } from './store/global/App.State';
+import { EffectsModule } from '@ngrx/effects';
+import { userEffects } from './store/user/user.effect';
 
 @NgModule({
   declarations: [
@@ -39,6 +43,9 @@ import { AdminLoginComponent } from './Admin/admin-login/admin-login.component';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    StoreModule.forRoot(AppState),
+    EffectsModule.forRoot([userEffects]),
+
   ],
 
   providers: [{

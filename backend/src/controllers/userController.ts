@@ -9,8 +9,9 @@ import { tokenAuth,generateToken} from "../middlewares/auth";
 export default {
   //user registration
   postUserSignUp: (req: Request, res: Response) => {
+    const {userDetails : {email,name,password}} = req.body
     userHelpers
-      .userSignUp(req.body)
+      .userSignUp(email,name,password)
       .then((data) => {
         res.json(data);
       })
@@ -39,11 +40,12 @@ export default {
   },
   //user login
   userLogin: async (req: Request, res: Response) => {
-    const user = await UserDB.findOne({ email: req.body.email });
+    const {userDetails:{email,password}} = req.body
+    const user = await UserDB.findOne({ email: email });
     if (!user) {
       return res.status(500).json({ message: "user not found" });
     }
-    if (!(await bcrypt.compare(req.body.password, user.password))) {
+    if (!(await bcrypt.compare(password, user.password))) {
       return res.status(500).json({
         message: "incorrect Password please try again",
       });
@@ -68,6 +70,7 @@ export default {
     });
   },
 
+  // upload picture
   uploadPic:async(req:headerRequest, res:Response)=>{
     //find user
     const userId = req.user.id
@@ -82,6 +85,7 @@ export default {
     res.json({imageUrl})
   },
 
+  // edit profile
   editUser:async (req:headerRequest, res:Response)=>{
     const userData = req.body
     const userID = req.user.id
