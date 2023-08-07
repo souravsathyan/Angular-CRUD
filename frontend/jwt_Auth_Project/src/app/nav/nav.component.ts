@@ -22,7 +22,7 @@ export class NavComponent implements OnInit {
   }
 
   logout(){
-    this.http.post('http://localhost:8081/api/userLogout', {})
+    this.http.post('http://localhost:8080/api/userLogout', {})
     .subscribe((res: any) => {
       localStorage.removeItem('token');
       this.router.navigate(['login'])

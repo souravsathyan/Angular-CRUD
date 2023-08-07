@@ -12,7 +12,7 @@ export class ProfileComponent implements OnInit {
   file: File;
   showInput = false;
   uploadedImage: string = '';
-  fileUrl: string = 'http://localhost:8081/images/';
+  fileUrl: string = 'http://localhost:8080/images/';
   message = '';
   profileImg = '';
   email = '';
@@ -25,6 +25,7 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
     this.authService.getUser().subscribe(
       (res: any) => {
+        console.log(res)
         this.message = `Hi ${res.user.name}`;
         this.email = res.user.email;
         this.uploadedImage = this.fileUrl + res.user.image
