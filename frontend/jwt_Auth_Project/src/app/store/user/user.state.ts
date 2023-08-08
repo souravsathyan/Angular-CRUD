@@ -1,6 +1,13 @@
-import { userState } from "./user.model";
+import { userModel } from "./user.model";
 
-export const UserState : userState = {
-    user : null,
+export const UserState : userModel = {
+    user : {
+        name:'',
+        email:'',
+        password:'',
+        _id:'',
+        isBlocked:false,
+        image:''
+    },
     token: ''
 }

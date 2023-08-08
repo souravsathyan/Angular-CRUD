@@ -30,6 +30,6 @@ export const LOGOUT = '[user] user logout';
 
     export const userLoginSuccess = createAction(
     LOGIN_USER_SUCCESSS,
-    props<{ userDetails: userInputData }>()
+    props<{ userDetails: userInputData, token:string}>()
     );
 

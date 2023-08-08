@@ -64,7 +64,6 @@ export class UsersComponent implements OnInit {
     const userData = this.form.value
     this.authService.createUser(userData)
     .subscribe((res)=>{
-      console.log(res.user)
       Swal.fire({
         title:'User created succesfully',
         icon:'success'

@@ -7,7 +7,6 @@ export default {
         return new Promise(async(resolve, reject) => {
             let user:Iuser = await UserDB.findOne({email:email})
             if(user){
-                // console.log('existing email')
                 reject({status:400, message:'email alrady exists'})
             }else{
                 password = await bcrypt.hash(password,10)

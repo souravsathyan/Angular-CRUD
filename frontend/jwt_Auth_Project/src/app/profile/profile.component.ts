@@ -25,7 +25,6 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
     this.authService.getUser().subscribe(
       (res: any) => {
-        console.log(res)
         this.message = `Hi ${res.user.name}`;
         this.email = res.user.email;
         this.uploadedImage = this.fileUrl + res.user.image
@@ -41,7 +40,6 @@ export class ProfileComponent implements OnInit {
   onChangeFile(event: any) {
     if (event.target.files.length > 0) {
       const file = event.currentTarget.files[0];
-      console.log(file);
       if (
         (file.type == 'image/png' || file.type == 'image/jpeg') &&
         file.size < 60000
@@ -69,7 +67,6 @@ export class ProfileComponent implements OnInit {
   }
 
   onNameUpdated(updatedName:string){
-    console.log('in paraent')
     this.message = updatedName
   }
 }

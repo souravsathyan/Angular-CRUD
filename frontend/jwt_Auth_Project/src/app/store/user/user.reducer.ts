@@ -1,23 +1,20 @@
 import { createReducer, on } from '@ngrx/store';
-import { userState } from './user.model';
+import { userModel } from './user.model';
+import { UserState } from './user.state';
 import {
   userLogin,
   userLoginSuccess,
   userRegistrationSuccess,
 } from './user.action';
 
-export const initialState: userState = {
-  user: null,
-  token: null,
-};
-
 const _userReducer = createReducer(
-  initialState,
+  UserState,
   //user login
   on(userLoginSuccess, (state, action) => {
     return {
       ...state,
       user: action.userDetails,
+      token:action.token
     };
   }),
   //user registration

@@ -1,17 +1,14 @@
-export interface userDetailsBackend {
+  export interface userInputData{
     _id?: string;
-    isBlocked: boolean;
-  }
-
-  export interface userInputData extends userDetailsBackend{
+    isBlocked?: boolean;
     name: string;
     email: string;
     password: string;
     image?: string;
   }
 
-export interface userState {
-    user:userInputData | null;
-    token:string | null
+export interface userModel {
+    user:userInputData 
+    token:string 
 }
 

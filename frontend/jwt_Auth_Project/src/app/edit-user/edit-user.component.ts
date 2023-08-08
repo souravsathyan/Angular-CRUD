@@ -53,7 +53,6 @@ export class EditUserComponent implements OnInit{
           icon:'error',
         })
       }
-      console.log(res,'name changed')
       this.updatedName.emit(res.name)
     })
     
@@ -64,7 +63,6 @@ export class EditUserComponent implements OnInit{
 
   showModal(){
     this.displayModal = true
-    console.log(this.displayModal)
   }
   
 }

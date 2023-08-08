@@ -75,7 +75,6 @@ export default {
     //find user
     const userId = req.user.id
     const profilePic = req.file.filename
-    console.log(profilePic)
     await UserDB.findByIdAndUpdate(
         userId,{
           image : profilePic

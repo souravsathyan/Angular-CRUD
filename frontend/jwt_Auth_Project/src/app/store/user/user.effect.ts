@@ -10,6 +10,8 @@ import {
 } from './user.action';
 import { exhaustMap, switchMap, map, catchError, tap } from 'rxjs';
 import { Router } from '@angular/router';
+import { userModel } from './user.model';
+import { UserState } from './user.state';
 
 @Injectable()
 export class userEffects {
@@ -25,10 +27,13 @@ export class userEffects {
       ofType(LOGIN_USER),
       switchMap((action) =>
         this.service.onLogin(action).pipe(
-          map((res) => {
+          map((res: userModel) => {
             localStorage.setItem('token', res.token);
             localStorage.setItem('admin', 'false');
-            return userLoginSuccess(res);
+            return userLoginSuccess({
+              userDetails: res.user,
+              token: res.token,
+            });
           })
         )
       )
@@ -46,8 +51,8 @@ export class userEffects {
     { dispatch: false }
   );
 
-//   user registration
-_userRegistration = createEffect(() =>
+  //   user registration
+  _userRegistration = createEffect(() =>
     this.action$.pipe(
       ofType(REG_USER),
       switchMap((action) =>
@@ -59,8 +64,8 @@ _userRegistration = createEffect(() =>
       )
     )
   );
-//   after registration redirecting to login
-_registerSuccess = createEffect(
+  //   after registration redirecting to login
+  _registerSuccess = createEffect(
     () =>
       this.action$.pipe(
         ofType(userRegistrationSuccess),
