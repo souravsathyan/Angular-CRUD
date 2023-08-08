@@ -28,8 +28,10 @@ export class userEffects {
       switchMap((action) =>
         this.service.onLogin(action).pipe(
           map((res: userModel) => {
+            // storing the userdata and token in the local storage 
             localStorage.setItem('token', res.token);
             localStorage.setItem('admin', 'false');
+            localStorage.setItem('userDetails', JSON.stringify(res.user))
             return userLoginSuccess({
               userDetails: res.user,
               token: res.token,

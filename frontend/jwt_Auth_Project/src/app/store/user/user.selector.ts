@@ -3,6 +3,7 @@ import { userModel } from "./user.model";
 
 const getUserState = createFeatureSelector <userModel> ('user');
 
-export const getBlog = createSelector(getUserState, (state)=>{
-    return state.user?.name;
+export const getUserName = createSelector(getUserState, (state)=>{
+    console.log(state)
+    return state.user;
 })
