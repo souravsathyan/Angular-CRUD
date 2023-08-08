@@ -27,7 +27,6 @@ export class HomeComponent implements OnInit , AfterViewInit{
 
   ngOnInit(): void {
     const storedUser = localStorage.getItem('userDetails')
-    console.log(storedUser)
     if(storedUser){
       const userData = JSON.parse(storedUser)
       this.message = userData.name

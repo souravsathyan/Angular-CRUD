@@ -9,5 +9,5 @@ export const UserState : userModel = {
         isBlocked:false,
         image:''
     },
-    token: ''
+    token: '',
 }

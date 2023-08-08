@@ -3,6 +3,7 @@ import { Request, Response } from "express";
 
 export default {
   getAllUsers: async (req: Request, res: Response) => {
+    console.log('in the admin controller')
     UserDB.find().then((result) => {
       res.json(result);
     });

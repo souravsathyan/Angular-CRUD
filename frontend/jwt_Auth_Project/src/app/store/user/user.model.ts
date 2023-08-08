@@ -8,7 +8,7 @@
   }
 
 export interface userModel {
-    user:userInputData 
+    user:userInputData
     token:string 
 }
 

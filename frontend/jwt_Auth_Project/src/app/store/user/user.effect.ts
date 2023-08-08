@@ -5,7 +5,10 @@ import {
   LOGIN_USER,
   LOGIN_USER_SUCCESSS,
   REG_USER,
+  uploadPicture,
+  uploadPictureSuccess,
   userLoginSuccess,
+  userRegistration,
   userRegistrationSuccess,
 } from './user.action';
 import { exhaustMap, switchMap, map, catchError, tap } from 'rxjs';
@@ -56,7 +59,7 @@ export class userEffects {
   //   user registration
   _userRegistration = createEffect(() =>
     this.action$.pipe(
-      ofType(REG_USER),
+      ofType(userRegistration),
       switchMap((action) =>
         this.service.createUser(action).pipe(
           map((res) => {
@@ -77,4 +80,18 @@ export class userEffects {
       ),
     { dispatch: false }
   );
+
+  _uploadPicture = createEffect(
+    ()=>
+    this.action$.pipe(
+      ofType(uploadPicture),
+      switchMap((action)=>{
+        return this.service.uploadPic(action.userImage).pipe(
+          map((res) => {
+            return uploadPictureSuccess({uploadedImage: res.imageUrl})
+          })
+        )
+      })
+    )
+  )
 }

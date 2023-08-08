@@ -2,6 +2,7 @@ import { createReducer, on } from '@ngrx/store';
 import { userModel } from './user.model';
 import { UserState } from './user.state';
 import {
+  uploadPictureSuccess,
   userLogin,
   userLoginSuccess,
   userRegistrationSuccess,
@@ -22,8 +23,19 @@ const _userReducer = createReducer(
     return {
       ...state,
     };
+  }),
+  on(uploadPictureSuccess, (state, action) =>{
+    return {
+      ...state,
+      user:{
+        ...state.user,
+        image:action.uploadedImage
+      }
+    }
   })
 );
+
+
 export function userReducer(state: any, action: any) {
   return _userReducer(state, action);
 }

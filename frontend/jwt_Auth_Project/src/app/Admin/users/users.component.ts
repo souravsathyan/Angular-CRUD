@@ -1,6 +1,10 @@
 import { Component, DoCheck, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Store } from '@ngrx/store';
 import { AuthServiceService } from 'src/app/service/auth-service.service';
+import { getUsers } from 'src/app/store/admin/admin.action';
+import { getUserList } from 'src/app/store/admin/admin.selector';
+import { userInputData } from 'src/app/store/user/user.model';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -12,12 +16,19 @@ export class UsersComponent implements OnInit {
   users: any = [];
   form:FormGroup
 
-  constructor(private authService: AuthServiceService) {}
+  constructor(
+    private authService: AuthServiceService,
+    private store : Store
+    ) {}
 
   ngOnInit(): void {
-    this.authService.getAllusers().subscribe((res) => {
-      this.users = res;
-    });
+    // this.authService.getAllusers().subscribe((res) => {
+    //   this.users = res;
+    // });
+    this.store.dispatch(getUsers())
+    this.store.select(getUserList).subscribe((res : userInputData)=>{
+      this.users = res
+    })
 
     this.form = new FormGroup({
       name: new FormControl('',Validators.required),
@@ -73,18 +84,7 @@ export class UsersComponent implements OnInit {
     })
   }
 
-  // onSearch(event:Event){
-  //   const searchTerm = (event.target as HTMLInputElement).value;
-  //   if(searchTerm === ''){
-  //     this.authService.getAllusers().subscribe((res) => {
-  //       this.users = res;
-  //     });
-  //   }else{
-  //     this.users = this.users.filter((user : any) =>
-  //       user.name.toLowerCase().includes(searchTerm.toLowerCase()))
-  //       console.log(this.users);
-  //   }
-  // }
+  
 
   filterResult(text:string){
     if(!text){

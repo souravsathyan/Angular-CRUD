@@ -21,6 +21,7 @@ import { StoreModule } from '@ngrx/store';
 import { AppState } from './store/global/App.State';
 import { EffectsModule } from '@ngrx/effects';
 import { userEffects } from './store/user/user.effect';
+import { adminEffects } from './store/admin/admin.effect';
 
 @NgModule({
   declarations: [
@@ -44,8 +45,7 @@ import { userEffects } from './store/user/user.effect';
     ReactiveFormsModule,
     HttpClientModule,
     StoreModule.forRoot(AppState),
-    EffectsModule.forRoot([userEffects]),
-
+    EffectsModule.forRoot([userEffects,adminEffects]),
   ],
 
   providers: [{
