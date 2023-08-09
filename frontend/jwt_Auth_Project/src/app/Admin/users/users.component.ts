@@ -2,8 +2,9 @@ import { Component, DoCheck, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { AuthServiceService } from 'src/app/service/auth-service.service';
-import { getUsers } from 'src/app/store/admin/admin.action';
-import { getUserList } from 'src/app/store/admin/admin.selector';
+import { deleteUser, getUsers } from 'src/app/store/admin/admin.action';
+import { getUserList, usersAfterDeletion } from 'src/app/store/admin/admin.selector';
+import { userRegistration } from 'src/app/store/user/user.action';
 import { userInputData } from 'src/app/store/user/user.model';
 import Swal from 'sweetalert2';
 
@@ -48,20 +49,25 @@ export class UsersComponent implements OnInit {
       cancelButtonColor: '#3085d6',
     }).then((result) => {
       if (result.isConfirmed) {
-        this.authService.deleteUser(id).subscribe((res) => {
-          if (res.success) {
-            this.users = this.users.filter((user: any) => user._id !== id);
-            Swal.fire({
-              title: 'user deleted successfully',
-              icon: 'success',
-            });
-          } else {
-            Swal.fire({
-              title: 'server error please try again',
-              icon: 'error',
-            });
-          }
-        });
+        // this.authService.deleteUser(id).subscribe((res) => {
+        //   if (res.success) {
+        //     this.users = this.users.filter((user: any) => user._id !== id);
+        //     Swal.fire({
+        //       title: 'user deleted successfully',
+        //       icon: 'success',
+        //     });
+        //   } else {
+        //     Swal.fire({
+        //       title: 'server error please try again',
+        //       icon: 'error',
+        //     });
+        //   }
+        // });
+        this.store.dispatch(deleteUser({id}))
+        this.store.select(usersAfterDeletion).subscribe((res)=>{
+          this.users = res
+        })
+
       } else {
         Swal.fire({
           title: 'Action cancelled',
@@ -73,15 +79,16 @@ export class UsersComponent implements OnInit {
 
   submit(){
     const userData = this.form.value
-    this.authService.createUser(userData)
-    .subscribe((res)=>{
-      Swal.fire({
-        title:'User created succesfully',
-        icon:'success'
-      }).then(()=>{
-        this.users.push(res.user)
-      })
-    })
+    // this.authService.createUser(userData)
+    // .subscribe((res)=>{
+    //   Swal.fire({
+    //     title:'User created succesfully',
+    //     icon:'success'
+    //   }).then(()=>{
+    //     this.users.push(res.user)
+    //   })
+    // })
+
   }
 
   
