@@ -1,5 +1,5 @@
 import { createReducer, on } from "@ngrx/store"
-import {  deleteUserSuccess, getUsersListSuccess } from "./admin.action"
+import {  createUserSuccess, deleteUserSuccess, getUsersListSuccess } from "./admin.action"
 import { UserListState } from "./admin.state"
 
 const _adminReducer = createReducer(
@@ -14,6 +14,13 @@ const _adminReducer = createReducer(
         return{
             ...state,
             user:state.user.filter((user) => user._id !== action.id)
+        }
+    }),
+    on(createUserSuccess,(state,action)=>{
+        console.log(action,'in the action reducer admin')
+        return {
+            ...state,
+            user:[...state.user, action.userDetails]
         }
     })
 )

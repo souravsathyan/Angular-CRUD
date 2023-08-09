@@ -3,6 +3,8 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { map, switchMap, tap } from 'rxjs';
 import { AuthServiceService } from 'src/app/service/auth-service.service';
 import {
+  createUser,
+  createUserSuccess,
   deleteUser,
   deleteUserSuccess,
   getUsers,
@@ -39,6 +41,19 @@ export class adminEffects {
           })
         );
       })
+    )
+  );
+
+  _createUser = createEffect(() =>
+    this.actions$.pipe(
+      ofType(createUser),
+      switchMap((action) =>
+        this.service.createUser(action).pipe(
+          map((res) => {
+            return createUserSuccess({userDetails:action.userDetails});
+          })
+        )
+      )
     )
   );
 }

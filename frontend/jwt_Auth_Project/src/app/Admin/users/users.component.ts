@@ -2,8 +2,8 @@ import { Component, DoCheck, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { AuthServiceService } from 'src/app/service/auth-service.service';
-import { deleteUser, getUsers } from 'src/app/store/admin/admin.action';
-import { getUserList, usersAfterDeletion } from 'src/app/store/admin/admin.selector';
+import { createUser, deleteUser, getUsers } from 'src/app/store/admin/admin.action';
+import { createdUser, getUserList, usersAfterDeletion } from 'src/app/store/admin/admin.selector';
 import { userRegistration } from 'src/app/store/user/user.action';
 import { userInputData } from 'src/app/store/user/user.model';
 import Swal from 'sweetalert2';
@@ -88,7 +88,11 @@ export class UsersComponent implements OnInit {
     //     this.users.push(res.user)
     //   })
     // })
-
+    this.store.dispatch(createUser({userDetails:userData}))
+    this.store.select(createdUser).subscribe((res)=>{
+      console.log(res)
+      this.users =res
+    })
   }
 
   

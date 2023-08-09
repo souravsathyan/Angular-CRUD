@@ -8,7 +8,10 @@ export const getUserList = createSelector(userState,(state)=>{
 })
 
 export const usersAfterDeletion = createSelector(userState,(state)=>{
-    console.log('sfsadasdsa',state,'in the delete selector');
+    return state.user
+})
+
+export const createdUser = createSelector(userState,(state)=>{
     return state.user
 })
 

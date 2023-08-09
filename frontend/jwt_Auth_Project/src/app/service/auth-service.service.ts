@@ -17,6 +17,7 @@ export class AuthServiceService {
   }
 
   createUser(userData:any):Observable<any>{
+    console.log(userData)
     return  this.http.post('http://localhost:8080/api/signUp', userData)
   }
 

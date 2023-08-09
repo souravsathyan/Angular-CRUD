@@ -9,6 +9,7 @@ import { tokenAuth,generateToken} from "../middlewares/auth";
 export default {
   //user registration
   postUserSignUp: (req: Request, res: Response) => {
+    console.log(req.body)
     const {userDetails : {email,name,password}} = req.body
     userHelpers
       .userSignUp(email,name,password)

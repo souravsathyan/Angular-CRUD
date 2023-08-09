@@ -18,3 +18,6 @@ export const getUsersListSuccess = createAction(ADMIN_GET_USERS_SUCCESS,props<{u
 export const deleteUser = createAction(ADMIN_DELETE_USER, props <{id:string}>())
 export const deleteUserSuccess = createAction(ADMIN_DELETE_USER_SUCCESS, props <{id:string}>())
 
+// creating the user 
+export const createUser = createAction(ADMIN_CREATE_USER, props <{userDetails:userInputData}>())
+export const createUserSuccess = createAction(ADMIN_CREATE_USER_SUCCESS, props <{userDetails:userInputData}>())
